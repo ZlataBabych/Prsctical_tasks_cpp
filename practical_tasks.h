@@ -5,7 +5,7 @@
 
 
 
-//169.Порахуйте кількість одиниць у довільному числі.
+//169. Calculate the number of units in any number.
 int count_units(int number);
 
 
