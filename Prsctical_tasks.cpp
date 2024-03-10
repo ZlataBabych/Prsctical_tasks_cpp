@@ -6,8 +6,9 @@ using namespace std;
 
 int main()
 {
-    const char* str = "";
-    cout << endl << count_words_in_sentence(str) << endl;
+    //const char* str = "";
+    int k = 5;
+    cout << endl << factorial(k) << endl;
 
     return 0;
 }

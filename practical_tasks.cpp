@@ -1,6 +1,8 @@
 #include "practical_tasks.h"
 #include<string>
+#include <iostream>
 
+using namespace std;
 
 int count_units(int number) {
     int count = 0;
@@ -59,6 +61,32 @@ int count_words_in_sentence(const char* str) {
 
     return ++count;
 }
+
+
+int factorial(int k) {
+    if (k < 0)
+        return 0;
+    if (k == 0 || k == 1)
+        return 1;
+    if (k == 2)
+        return 2;
+
+    int i = 1;
+    int sum = k;
+    while (i < k) {
+        sum *= i;
+        cout << sum << " ";
+        ++i;
+    }
+
+    return sum;
+}
+
+
+
+
+
+
 
 
 

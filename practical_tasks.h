@@ -12,4 +12,11 @@ int atoi_(const char* str);
 //179. Count the words in a sentence.
 int count_words_in_sentence(const char* str);
 
+//180. Implement the calculation of factorial numbers.
+int factorial(int k);
+
+
+
+
+
 #endif
