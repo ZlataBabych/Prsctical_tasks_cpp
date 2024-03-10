@@ -1,6 +1,9 @@
 #include "practical_tasks.h"
 #include<string>
 #include <iostream>
+#include<list>
+#include<vector>
+#include<map>
 
 using namespace std;
 
@@ -82,6 +85,23 @@ int factorial(int k) {
     return sum;
 }
 
+
+list<int> unique_for_two_arrays(vector<int> const& v1, vector<int> const& v2) {
+    map<int, int> all_elem;
+    list<int> unique_elem;
+
+    for (auto it : v1)
+        all_elem[it]++;
+
+    for (auto it : v2)
+        all_elem[it]++;
+
+    for (auto it : all_elem)
+        if (it.second == 1)
+            unique_elem.push_back(it.first);
+
+    return unique_elem;
+}
 
 
 
