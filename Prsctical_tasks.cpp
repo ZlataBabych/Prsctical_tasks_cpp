@@ -6,9 +6,8 @@ using namespace std;
 
 int main()
 {
-    int number = 0;
-    cin >> number;
-    cout << endl << count_units(number) << endl;
+    const char* str = "   -444";
+    cout << endl << atoi_(str) << endl;
 
     return 0;
 }
