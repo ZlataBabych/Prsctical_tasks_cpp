@@ -9,6 +9,7 @@ int count_units(int number);
 //171. Write the implementation of the function int atoi(const char* str); string to number conversion.
 int atoi_(const char* str);
 
-
+//179. Count the words in a sentence.
+int count_words_in_sentence(const char* str);
 
 #endif

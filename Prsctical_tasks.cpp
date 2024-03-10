@@ -6,8 +6,8 @@ using namespace std;
 
 int main()
 {
-    const char* str = "   -444";
-    cout << endl << atoi_(str) << endl;
+    const char* str = "";
+    cout << endl << count_words_in_sentence(str) << endl;
 
     return 0;
 }

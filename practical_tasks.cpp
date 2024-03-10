@@ -43,6 +43,30 @@ int atoi_(const char* str) {
 }
 
 
+int count_words_in_sentence(const char* str) {
+    int count = 0;
+
+    if (str == '\0' || str == nullptr)
+        return 0;
+
+    int i = 0;
+
+    while (str[i] != '\0') {
+        if (str[i] == ' ')
+            ++count;
+        ++i;
+    }
+
+    return ++count;
+}
+
+
+
+
+
+
+
+
 
 
 
