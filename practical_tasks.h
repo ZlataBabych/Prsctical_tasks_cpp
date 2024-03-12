@@ -66,6 +66,22 @@ public:
     }
 };
 
+//185. Write a function to determine whether a certain word is a palindrome.
+bool is_palindrome(std::string const& word);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

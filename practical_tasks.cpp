@@ -8,8 +8,6 @@
 using namespace std;
 
 
-
-
 int count_units(int number) {
     int count = 0;
     std::string str = std::to_string(number);
@@ -22,6 +20,7 @@ int count_units(int number) {
 
     return count;
 }
+
 
 int atoi_(const char* str) {
    
@@ -127,6 +126,7 @@ list<int> unique_for_two_arrays(std::vector<int> const& v1, std::vector<int> con
     return unique_elem;
 }
 
+
 void reverse_of_lines(char* str) {
     if (str == nullptr || str[0] == '\0')
         return;
@@ -144,7 +144,24 @@ void reverse_of_lines(char* str) {
 }
 
 
+bool is_palindrome(std::string const& word) {
+    int len = word.length();
+    std::cout << len << "   ";
 
+    if (len == 0)
+        return false;
+    
+    if (len == 1)
+        return true;
+;
+    for (int i = 0; i <= len / 2; ++i) {
+        std::cout << word[i] << " " << word[len - i - 1] << std::endl;
+        if (word[i] != word[len - i - 1])
+            return false;
+    }
+
+    return true;
+}
 
 
 
