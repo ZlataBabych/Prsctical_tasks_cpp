@@ -86,9 +86,30 @@ int factorial(int k) {
 }
 
 
-list<int> unique_for_two_arrays(vector<int> const& v1, vector<int> const& v2) {
-    map<int, int> all_elem;
-    list<int> unique_elem;
+int fibonacci(int k) {
+    if (k <= 0)
+        return 0;
+
+    if (k == 1 or k == 2)
+        return 1;
+
+    int fib = 0;
+    int subprev = 1;
+    int prev = 1;
+
+    for (int i = 3; i <= k; ++i) {
+        fib = subprev + prev;
+        subprev = prev;
+        prev = fib;
+    }
+
+    return fib;
+}
+
+
+list<int> unique_for_two_arrays(std::vector<int> const& v1, std::vector<int> const& v2) {
+    std::map<int, int> all_elem;
+    std::list<int> unique_elem;
 
     for (auto it : v1)
         all_elem[it]++;
@@ -101,6 +122,22 @@ list<int> unique_for_two_arrays(vector<int> const& v1, vector<int> const& v2) {
             unique_elem.push_back(it.first);
 
     return unique_elem;
+}
+
+void reverse_of_lines(char* str) {
+    if (str == nullptr || str[0] == '\0')
+        return;
+
+    int size = 0;
+    while (str[size] != '\0')
+        ++size;
+
+    char temp = '\0';
+    for (int i = 0; i < size/2; ++i) {
+        temp = str[i];
+        str[i] = str[size - i];
+        str[size - i] = temp;
+    }
 }
 
 
