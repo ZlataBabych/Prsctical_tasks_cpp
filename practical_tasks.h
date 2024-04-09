@@ -70,16 +70,77 @@ public:
 bool is_palindrome(std::string const& word);
 
 
+//186. Write an implementation of the Singleton pattern.
+//class ISingleton {
+//    std::string data;
+//    ISingleton() { data = "I am ISingleton"; }
+//
+//protected:
+//    static ISingleton* create() {
+//        return new ISingleton;
+//    }
+//
+//    std::string get_data() {
+//        return data;
+//    }
+//};
+//class Singleton {
+//    std::string data;
+//    static Singleton* obj;
+//    Singleton() {
+//        data = "I am a Singleton"; 
+//        Singleton::obj = new Singleton;
+//    }
+//public:
+//    
+//    static Singleton* getSingleton();
+//
+//    std::string get_data() {
+//        std::cout << "data " << data << " \n obj  " << obj << "  & " << &obj << "\n";
+//        return data;
+//    }
+//};
+//Singleton* Singleton::obj = nullptr;
+//Singleton* Singleton::getSingleton() {
+//    return Singleton::obj == nullptr ? new Singleton : Singleton::obj;
+//}
+//
 
 
 
 
+//187. Write an implementation of std::vector with operations : push_back, push_front, pop_back, pop_front, size, clear.
+//188. Write a recursive search for a value in a binary search tree.
+//189. Write a function that checks whether a tree is balanced.
+//190. Write a function to find a unique element in an array.
 
 
 
+void sortBubble(std::vector<int>& arr);
+
+
+constexpr inline const char* super_secret(void) {
+    constexpr const char* STRING = "string";
+    return STRING;
+}
+
+
+//throw an exeption in class constructow (it`s good)
+void exThrowInConstructor();
 
 
 
+/*
+Implement a void function F that takes pointers
+to two arrays of integers (A and B) and a size N as parameters.
+It then populates B where B[i] is the product of all A[j] where j != i.
+
+For example: If A = {2, 1, 5, 9}, then B would be {45, 90, 18, 10}.
+*/
+
+void productOfAllElemInArray(int* A, int* B, size_t N);
+
+void productOfAllElemInArrayBest(int* A, int* B, int N);
 
 
 

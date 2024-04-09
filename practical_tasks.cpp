@@ -2,7 +2,7 @@
 #include<string>
 #include <iostream>
 #include<list>
-#include<vector>
+//#include<vector>
 #include<map>
 
 using namespace std;
@@ -164,15 +164,201 @@ bool is_palindrome(std::string const& word) {
 }
 
 
+void sortBubble(std::vector<int>& arr) {
+    if (arr.empty())
+        return;
+
+    if (arr.size() == 1)
+        return;
+
+    int size = arr.size();
+    for (int i = 0; i < size - 1; ++i)
+        for (int j = 0; j < size - 1 - i; ++j) {
+            if (arr[j] > arr[j + 1])
+                swap(arr[j], arr[j + 1]);
+        }
+}
+
+
+bool areParenthesesBalanced(const std::string& expression) {
+    std::stack<char> stack;
+
+    for (char c : expression) {
+        switch (c) {
+        case '(':
+        case '{':
+        case '[':
+            stack.push(c);
+            break;
+        case ')':
+            if (stack.empty() || stack.top() != '(') return false;
+            stack.pop();
+            break;
+        case '}':
+            if (stack.empty() || stack.top() != '{') return false;
+            stack.pop();
+            break;
+        case ']':
+            if (stack.empty() || stack.top() != '[') return false;
+            stack.pop();
+            break;
+        }
+    }
+
+    // If stack is empty, all parentheses were balanced; otherwise, not balanced.
+    return stack.empty();
+}
+
+
+void exThrowInConstructor() {
+    //out of func:
+    struct ExcType1 {};
+    struct ExcType2 {};
+
+
+    class A {
+    public:
+        A() { throw ExcType1(); }
+    };
+
+    //func:
+    try {
+        A a;
+        throw ExcType2();
+    }
+
+    catch (ExcType1&) {
+        printf("ExcType1 ");
+    }
+
+    catch (ExcType2&) {
+        printf("ExcType2 ");
+    }
+
+    printf(". but Continue");
+}
+
+
+void exRvalueMoveConstructor() {
+    //struct:
+    struct String {
+
+        String() {};
+
+        String(String const& s) { std::cout << "Copy Constructor" << std::endl; };
+
+        String& operator=(String const& a) {
+
+            std::cout << "Copy Operator = " << std::endl;
+
+            return *this;
+
+        };
+
+        ~String() {};
+
+        String(String&& s) { std::cout << "Move Constructor" << std::endl; }
+
+        String& operator=(String&& s) {
+
+            std::cout << "Move Operator = " << std::endl;
+
+            return *this;
+
+        }
+
+    };
 
 
 
+    //functions:
+
+    /*String& fun1(String & s) { return s; }
+
+    String&& fun2(String & s) { return std::move(s); }
+
+    String fun3(String & s) { return std::move(s); }
+
+    String fun4(String s) { return std::move(s); }
+
+    String fun5(String s) { return std::forward<String>(s); }
+
+    String&& fun6(String && s) { return std::move(s); }
+
+    String fun7(String && s) { return s; }*/
 
 
 
+    //main:
+
+ /*   String str, str2;
+
+    std::cout << "fun1" << std::endl;
+
+    str2 = fun1(str);
+
+    std::cout << "fun2" << std::endl;
+
+    str2 = fun2(str);
+
+    std::cout << "fun3" << std::endl;
+
+    str2 = fun3(str);
+
+    std::cout << "fun4" << std::endl;
+
+    str2 = fun4(str);
+
+    std::cout << "fun5" << std::endl;
+
+    str2 = fun5(str);
+
+    std::cout << "fun6" << std::endl;
+
+    str2 = fun6(String());
+
+    std::cout << "fun7" << std::endl;
+
+    str2 = fun7(String());*/
+
+}
 
 
+void productOfAllElemInArray(int* A, int* B, size_t N) {
+    if (N == 1)
+        B[0] = A[0];
 
+    for (int i = 0; i < N; ++i) {
+        B[i] = 1;
+        for (int j = 0; j < N; ++j) {
+            if (i == j)
+                continue;
+            B[i] *= A[j];
+        }
+    }
+}
+
+void productOfAllElemInArrayBest(int* A, int* B, int N) {
+    // Set prod to the neutral multiplication element
+    int prod = 1;
+
+    for (int i = 0; i < N; ++i) {
+        // For element "i" set B[i] to A[0] * ... * A[i - 1]
+        B[i] = prod;
+        // Multiply with A[i] to set prod to A[0] * ... * A[i]
+        prod *= A[i];
+    }
+
+    // Reset prod and use it for the right elements
+    prod = 1;
+
+    for (int i = N - 1; i >= 0; --i) {
+        // For element "i" multiply B[i] with A[i + 1] * ... * A[N - 1]
+        B[i] *= prod;
+        // Multiply with A[i] to set prod to A[i] * ... * A[N - 1]
+        prod *= A[i];
+    }
+}
 
 
 

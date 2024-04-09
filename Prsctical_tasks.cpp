@@ -4,23 +4,47 @@
 #include <memory>
 #include<list>
 #include<vector>
+#include<algorithm>
 #include<map>
 #include <string>
+
 using namespace std;
 
+class Base {
+    virtual void method() { std::cout << "from Base" << std::endl; }
+public:
+    virtual ~Base() { method(); }
+    void baseMethod() { method(); }
+};
+
+class A : public Base {
+    void method() { std::cout << "from A" << std::endl; }
+public:
+    ~A() { method(); }
+};
+
+int main(void) {
+    
+
+    unsigned char half_limit = 150;
+
+    for (unsigned char i = 0; i < 2 * half_limit; ++i)
+    {
+        cout << i << " ";
+    }
 
 
-int main() {
-   /* LoggerToConsole consoleLogger;
-    consoleLogger.log_mess("Logging to the console.");
 
-    LoggerToFile fileLogger("D:/Zlata/WORK/С++/Prsctical_tasks/log.txt");
-    fileLogger.log_mess("Logging to a file.");*/
 
-    cout << is_palindrome("teiilpiiet") << "  " <<
-        is_palindrome("") << "  " <<
-        is_palindrome("kereek") << "  " << is_palindrome("teret");
 
     return 0;
 }
+
+
+
+
+
+		
+
+
 
