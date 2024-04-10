@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <iostream>
 #include<list>
@@ -118,6 +118,7 @@ bool is_palindrome(std::string const& word);
 
 void sortBubble(std::vector<int>& arr);
 
+int sumDigit(int positiveInteger);
 
 constexpr inline const char* super_secret(void) {
     constexpr const char* STRING = "string";
@@ -127,7 +128,6 @@ constexpr inline const char* super_secret(void) {
 
 //throw an exeption in class constructow (it`s good)
 void exThrowInConstructor();
-
 
 
 /*
@@ -152,4 +152,28 @@ std::vector<std::vector<int>> counterclockwiseRotateTwoDimensionalMatrix(std::ve
 std::vector<std::vector<int>> RotateTwoDimensionalMatrix(std::vector<std::vector<int>> matrix, int num);
 //best solution
 std::vector<std::vector<int>> rotateTransform(std::vector<std::vector<int>> arr, int num);
+
+
+
+//You have received an encrypted message from space.Your task is to decrypt the message with the following simple rules :
+//
+//Message string will consist of capital letters, numbers, and brackets only.
+//When there's a block of code inside the brackets, such as [10AB], it means you need to repeat the letters AB for 10 times.
+//Message can be embedded in multiple layers of blocks.
+//Final decrypted message will only consist of capital letters.
+//Create a function that takes encrypted message str and returns the decrypted message.
+//
+//Examples
+//spaceMessage("ABCD") ➞ "ABCD"
+//
+//spaceMessage("AB[3CD]") ➞ "ABCDCDCD"
+//// "AB" = "AB"
+//// "[3CD]" = "CDCDCD"
+//
+//spaceMessage("IF[2E]LG[5O]D") ➞ "IFEELGOOOOOD"
+std::string spaceMessageInScope(std::string str, int open, int close);
+std::string spaceMessage(std::string str);
+
+
+
 

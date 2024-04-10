@@ -439,5 +439,71 @@ std::vector<std::vector<int>> rotateTransform(std::vector<std::vector<int>> arr,
 
 
 
+int sumDigit(int positiveInteger) {
+    int sum = 0;
+    while (positiveInteger % 10 != 0) {
+        sum += positiveInteger % 10;
+        positiveInteger /= 10;
+    }
+    return sum;
+}
 
+
+
+std::string spaceMessageInScope(std::string str, int open, int close) {
+    std::string new_str = "";
+
+
+    char* mult_str = new char[close - open];
+    memset(mult_str, '0', sizeof(char));
+
+    int i = 0;
+    for (int s = open + 1; s < close; ++s) {
+        mult_str[i] = str[s];
+        ++i;
+    }
+
+    int count = atoi(mult_str);
+
+
+    for (int s = open + 1; s < close; ++s) {
+        if ((str[s] < '0' || str[s] > '9') && (str[s] != '[' || str[s] != ']')) {
+            new_str += str[s];
+        }
+    }
+
+    std::string res = "";
+    while (count > 0) {
+        res += new_str;
+        --count;
+    }
+
+    return res;
+}
+std::string spaceMessage(std::string str) {
+    std::string new_str = "";
+
+    int open = 0; // [
+    int close = 0; // ]
+
+    bool flag = true;
+
+    for (int s = 0; s < str.length(); ++s) {
+        if (str[s] == '[') {
+            flag = false;
+            open = s;
+            continue;
+        }
+        if (str[s] == ']') {
+            flag = true;
+            close = s;
+            new_str += spaceMessageInScope(str, open, close);
+            continue;
+        }
+        if (flag == true && (str[s] != '[' || str[s] != ']'))
+            new_str += str[s];
+    }
+
+    return new_str;
+}
 
