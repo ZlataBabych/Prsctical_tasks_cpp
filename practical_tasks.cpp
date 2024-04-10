@@ -360,5 +360,84 @@ void productOfAllElemInArrayBest(int* A, int* B, int N) {
     }
 }
 
+std::vector<int> invertArray(std::vector<int> arr) {
+    for (auto& i : arr)
+        i = -1 * i;
+
+    return arr;
+}
+
+
+
+std::vector<std::vector<int>> clockwiseRotateTwoDimensionalMatrix(std::vector<std::vector<int>> matrix) {
+    size_t n = matrix.size();
+
+    std::vector<std::vector<int>> matrixRotate(matrix);
+
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            matrixRotate[i][j] = matrix[n - j - 1][i];
+
+    return matrixRotate;
+}
+std::vector<std::vector<int>> counterclockwiseRotateTwoDimensionalMatrix(std::vector<std::vector<int>> matrix) {
+    size_t n = matrix.size();
+
+    std::vector<std::vector<int>> matrixRotate(matrix);
+
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            matrixRotate[n - j - 1][i] = matrix[i][j];
+
+    return matrixRotate;
+}
+std::vector<std::vector<int>> RotateTwoDimensionalMatrix(std::vector<std::vector<int>> matrix, int num) {
+
+    /*
+    std::vector<std::vector<int>> matrix 
+    {   {0, 1, 2, 3, 4},
+        {5, 6, 7, 8, 9},
+        {3, 1, 7, 3, 4},
+        {4, 5, 5, 9, 0},
+        {7, 7, 2, 1, 8}   };
+    */
+
+    if (num != 0 && num % 4 != 0) {
+        std::vector<std::vector<int>> matrixRotate(matrix);
+        if (num > 0)
+            while (num > 0) {
+                matrixRotate = clockwiseRotateTwoDimensionalMatrix(matrixRotate);
+                --num;
+            }
+        else
+            while (num < 0) {
+                matrixRotate = counterclockwiseRotateTwoDimensionalMatrix(matrixRotate);
+                ++num;
+            }
+        return matrixRotate;
+    }
+    return matrix;
+}
+//best solution
+std::vector<std::vector<int>> rotateTransform(std::vector<std::vector<int>> arr, int num) {
+    num %= 4;
+    size_t n = arr.size();
+    using Matrix = std::vector<std::vector<int>>;
+    auto transpose = [&](Matrix& m) {
+        for (int row = 0; row < n; ++row)
+            for (int col = row + 1; col < n; ++col)
+                std::swap(m[row][col], m[col][row]);
+    };
+    auto flip = [](Matrix& m) {
+        for (auto& row : m)
+            std::reverse(m.begin(), m.end());
+    };
+    while (num < 0) { flip(arr); transpose(arr); ++num; }
+    while (num > 0) { transpose(arr); flip(arr); --num; }
+    return arr;
+}
+
+
+
 
 

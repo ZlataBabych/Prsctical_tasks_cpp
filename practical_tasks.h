@@ -142,8 +142,14 @@ void productOfAllElemInArray(int* A, int* B, size_t N);
 
 void productOfAllElemInArrayBest(int* A, int* B, int N);
 
+std::vector<int> invertArray(std::vector<int> arr);
 
 
-
-
+//Create a function to rotate a two-dimensional matrix of N * N integer elements num times, 
+//where if num is positive, the rotation is clockwise, and if not, counterclockwise.
+std::vector<std::vector<int>> clockwiseRotateTwoDimensionalMatrix(std::vector<std::vector<int>> matrix);
+std::vector<std::vector<int>> counterclockwiseRotateTwoDimensionalMatrix(std::vector<std::vector<int>> matrix);
+std::vector<std::vector<int>> RotateTwoDimensionalMatrix(std::vector<std::vector<int>> matrix, int num);
+//best solution
+std::vector<std::vector<int>> rotateTransform(std::vector<std::vector<int>> arr, int num);
 
