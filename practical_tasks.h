@@ -9,6 +9,7 @@
 #include <string>
 
 // Deque from GitHub
+/*
 template <class T>
 class deque {
 private:
@@ -201,7 +202,7 @@ public:
         }
     }
 };
-
+*/
 
 //169. Calculate the number of units in any number.
 int count_units(int number);
@@ -370,5 +371,42 @@ std::string spaceMessageInScope(std::string str, int open, int close);
 std::string spaceMessage(std::string str);
 
 
+/*
+A wristband can have 4 patterns:
 
+horizontal: each item in a row is identical.
+vertical: each item in a column is identical.
+diagonal left: each item is identical to the one on its upper left or bottom right.
+diagonal right: each item is identical to the one on its upper right or bottom left.
+You are shown an incomplete section of a wristband.
+
+Write a function that returns true if the section can be correctly classified into one of the 4 types, and false otherwise.
+
+Examples
+std::vector<std::vector<string>> arr1
+    {	{"A", "B", "C"},
+        {"B", "C", "A"},
+        {"C", "A", "B"},
+        {"A", "B", "A"}		};
+
+    std::vector<std::vector<string>> arr2
+    {	{"A", "B", "C"},
+        {"A", "B", "C"},
+        {"A", "B", "C"},
+        {"A", "B", "C"} };
+
+    std::vector<std::vector<string>> arr3
+    {	{"A", "A", "A"},
+        {"C", "C", "C"},
+        {"C", "C", "C"},
+        {"A", "A", "A"} };
+
+    std::vector<std::vector<string>> arr4
+    {	{"A", "B", "C"},
+        {"B", "A", "B"},
+        {"C", "B", "A"},
+        {"A", "C", "B"} };
+*/
+
+bool isWristband(vector<vector<string>> arr);
 

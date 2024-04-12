@@ -119,7 +119,7 @@ list<int> unique_for_two_arrays(std::vector<int> const& v1, std::vector<int> con
     for (auto it : v2)
         all_elem[it]++;
 
-    for (auto it : all_elem)
+    for (auto& it : all_elem)
         if (it.second == 1)
             unique_elem.push_back(it.first);
 
@@ -438,7 +438,6 @@ std::vector<std::vector<int>> rotateTransform(std::vector<std::vector<int>> arr,
 }
 
 
-
 int sumDigit(int positiveInteger) {
     int sum = 0;
     while (positiveInteger % 10 != 0) {
@@ -447,7 +446,6 @@ int sumDigit(int positiveInteger) {
     }
     return sum;
 }
-
 
 
 std::string spaceMessageInScope(std::string str, int open, int close) {
@@ -507,3 +505,68 @@ std::string spaceMessage(std::string str) {
     return new_str;
 }
 
+
+bool isWristband(vector<vector<string>> arr) {
+    size_t n = arr.size();
+    size_t m = arr[0].size();
+
+    if (n == 0 || m == 0)
+        return false;
+
+    if (n == 1 || m == 1)
+        return true;
+
+    auto isHorizontal = [n, m](vector<vector<string>> arr) -> bool {
+
+        for (int i = 0; i < n; ++i) {
+            char first = arr[i][0][0];
+            for (int j = 1; j < m; ++j) {
+                if (arr[i][j][0] != first)
+                    return false;
+            }
+        }
+
+        return true;
+    };
+
+    auto isVertical = [n, m](vector<vector<string>> arr) -> bool {
+
+        for (int i = 0; i < m; ++i) {
+            char first = arr[0][i][0];
+            for (int j = 1; j < n; ++j) {
+                if (arr[j][i][0] != first)
+                    return false;
+            }
+        }
+
+        return true;
+    };
+
+    auto isDiagonalLeft = [n, m](vector<vector<string>> arr) -> bool {
+
+        for (int i = 0; i < n - 1; ++i) {
+            for (int j = 0; j < m - 1; ++j) {
+                //cout << " arr[i][j] = " << arr[i][j] << "     arr[i+1][j+1] " << arr[i + 1][j + 1] << endl;
+                if (arr[i][j] != arr[i + 1][j + 1])
+                    return false;
+            }
+        }
+
+        return true;
+    };
+
+    auto isDiagonalRight = [n, m](vector<vector<string>> arr) -> bool {
+
+        for (int i = 0; i < n - 1; ++i) {
+            for (int j = 1; j < m; ++j) {
+                //cout << " arr[i][j] = " << arr[i][j] << "     arr[i+1][j+1] " << arr[i + 1][j + 1] << endl;
+                if (arr[i][j] != arr[i + 1][j - 1])
+                    return false;
+            }
+        }
+
+        return true;
+    };
+
+    return (isHorizontal(arr) || isVertical(arr) || isDiagonalLeft(arr) || isDiagonalRight(arr));
+}
