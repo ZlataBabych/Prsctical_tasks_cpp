@@ -204,6 +204,102 @@ public:
 };
 */
 
+/*
+In this kata we are going to mimic a software versioning system.
+
+You have to implement a VersionManager class.
+
+It should accept an optional parameter that represents the initial version. The input will be in one of the following formats: "{MAJOR}", "{MAJOR}.{MINOR}", or "{MAJOR}.{MINOR}.{PATCH}". More values may be provided after PATCH but they should be ignored. If these 3 parts are not decimal values, an exception with the message "Error occured while parsing version!" should be thrown. If the initial version is not provided or is an empty string, use "0.0.1" by default.
+
+This class should support the following methods, all of which should be chainable (except release):
+
+major() - increase MAJOR by 1, set MINOR and PATCH to 0
+minor() - increase MINOR by 1, set PATCH to 0
+patch() - increase PATCH by 1
+rollback() - return the MAJOR, MINOR, and PATCH to their values before the previous major/minor/patch call, or throw an exception with the message "Cannot rollback!" if there's no version to roll back to. Multiple calls to rollback() should be possible and restore the version history
+release() - return a string in the format "{MAJOR}.{MINOR}.{PATCH}"
+Note: In C++, use preloaded VersionException class for throwing exceptions.
+
+May the binary force be with you!
+*/
+class VersionException {
+    std::string Exception;
+public:
+    VersionException(std::string Exception) :Exception(Exception) {}
+};
+class VersionManager {
+public:
+    VersionManager(std::string version = "0.0.1") {
+        if (version.empty()) {
+            version = "0.0.1";
+        }
+        try {
+            parseVersion(version);
+        }
+        catch (const std::invalid_argument&) {
+            throw VersionException("Error occured while parsing version!");
+        }
+        catch (const std::out_of_range&) {
+            throw VersionException("Error occured while parsing version!");
+        }
+    }
+
+    VersionManager& major() {
+        saveState();
+        major_++;
+        minor_ = 0;
+        patch_ = 0;
+        return *this;
+    }
+
+    VersionManager& minor() {
+        saveState();
+        minor_++;
+        patch_ = 0;
+        return *this;
+    }
+
+    VersionManager& patch() {
+        saveState();
+        patch_++;
+        return *this;
+    }
+
+    VersionManager& rollback() {
+        if (history_.empty())
+            throw VersionException("Cannot rollback!");
+
+        std::tie(major_, minor_, patch_) = history_.top();
+        history_.pop();
+        return *this;
+    }
+
+    std::string release() const {
+        return std::to_string(major_) + "." + std::to_string(minor_) + "." + std::to_string(patch_);
+    }
+
+private:
+    int major_ = 0, minor_ = 0, patch_ = 0;
+    std::stack<std::tuple<int, int, int>> history_;
+
+    void saveState() {
+        history_.push({ major_, minor_, patch_ });
+    }
+
+    void parseVersion(const std::string& version) {
+        std::istringstream iss(version);
+        std::string part;
+
+        if (!std::getline(iss, part, '.') || part.empty()) throw std::invalid_argument("Invalid input");
+        major_ = stoi(part);
+        if (!std::getline(iss, part, '.')) return;
+        minor_ = stoi(part);
+        if (!std::getline(iss, part, '.')) return;
+        patch_ = stoi(part);
+    }
+};
+
+
 //169. Calculate the number of units in any number.
 int count_units(int number);
 
@@ -408,5 +504,5 @@ std::vector<std::vector<string>> arr1
         {"A", "C", "B"} };
 */
 
-bool isWristband(vector<vector<string>> arr);
+bool isWristband(std::vector<std::vector<std::string>> arr);
 
