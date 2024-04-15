@@ -55,58 +55,28 @@ Examples
 
 ["APP_ACTIVE_OPEN", "RCV_SYN_ACK", "APP_CLOSE", "RCV_FIN_ACK", "RCV_ACK"] =>  "ERROR"
 */
-
-STATE getNewState(STATE currentState, EVENT event) {
-    if (stateEvents[currentState].find(event) !=
-        stateEvents[currentState].end()) {
-        return stateEvents[currentState][event];
-    }
-    else {
-        throw std::runtime_error("ERROR");
-    }
-}
-std::string stateToString(STATE state) {
-    switch (state) {
-    case STATE::CLOSED: return "CLOSED";
-    case STATE::LISTEN: return "LISTEN";
-    case STATE::SYN_SENT: return "SYN_SENT";
-    case STATE::SYN_RCVD: return "SYN_RCVD";
-    case STATE::ESTABLISHED: return "ESTABLISHED";
-    case STATE::CLOSE_WAIT: return "CLOSE_WAIT";
-    case STATE::LAST_ACK: return "LAST_ACK";
-    case STATE::FIN_WAIT_1: return "FIN_WAIT_1";
-    case STATE::FIN_WAIT_2: return "FIN_WAIT_2";
-    case STATE::CLOSING: return "CLOSING";
-    case STATE::TIME_WAIT: return "TIME_WAIT";
-    default: return "UNKNOWN";
-    }
-}
-EVENT stringToEvent(const std::string& event) {
-    if (event == "APP_PASSIVE_OPEN") return EVENT::APP_PASSIVE_OPEN;
-    if (event == "APP_ACTIVE_OPEN") return EVENT::APP_ACTIVE_OPEN;
-    if (event == "APP_SEND") return EVENT::APP_SEND;
-    if (event == "APP_CLOSE") return EVENT::APP_CLOSE;
-    if (event == "APP_TIMEOUT") return EVENT::APP_TIMEOUT;
-    if (event == "RCV_SYN") return EVENT::RCV_SYN;
-    if (event == "RCV_ACK") return EVENT::RCV_ACK;
-    if (event == "RCV_SYN_ACK") return EVENT::RCV_SYN_ACK;
-    if (event == "RCV_FIN") return EVENT::RCV_FIN;
-    if (event == "RCV_FIN_ACK") return EVENT::RCV_FIN_ACK;
-    throw std::runtime_error("Invalid event");
-}
+std::map<std::string, std::map<std::string, std::string>> TCP_FSM = {
+        {"CLOSED",     {{"APP_PASSIVE_OPEN", "LISTEN"},{"APP_ACTIVE_OPEN", "SYN_SENT"}} },
+        {"LISTEN",     {{"RCV_SYN", "SYN_RCVD"}, {"APP_SEND", "SYN_SENT"}, {"APP_CLOSE", "CLOSED"}}},
+        {"SYN_RCVD",   {{"APP_CLOSE", "FIN_WAIT_1"}, {"RCV_ACK","ESTABLISHED"}}},
+        {"SYN_SENT",   {{"RCV_SYN", "SYN_RCVD"}, {"RCV_SYN_ACK", "ESTABLISHED"}, {"APP_CLOSE", "CLOSED"}}},
+        {"ESTABLISHED",{{"APP_CLOSE", "FIN_WAIT_1"}, {"RCV_FIN", "CLOSE_WAIT"}}},
+        {"FIN_WAIT_1", {{"RCV_FIN", "CLOSING"}, {"RCV_FIN_ACK", "TIME_WAIT"}, {"RCV_ACK", "FIN_WAIT_2"}}},
+        {"CLOSING",    {{"RCV_ACK", "TIME_WAIT"}}},
+        {"FIN_WAIT_2", {{"RCV_FIN", "TIME_WAIT"}}},
+        {"TIME_WAIT",  {{"APP_TIMEOUT", "CLOSED"}}},
+        {"CLOSE_WAIT", {{"APP_CLOSE", "LAST_ACK"}}},
+        {"LAST_ACK",   {{"RCV_ACK", "CLOSED"}}},
+};
 std::string traverse_TCP_states(const std::vector<std::string>& events) {
-    STATE currentState = STATE::CLOSED;
-
-    try {
-        for (const std::string& eventStr : events) {
-            EVENT event = stringToEvent(eventStr);
-            currentState = getNewState(currentState, event);
+    std::string state = "CLOSED";
+    for (const auto& i : events) {
+        if (TCP_FSM[state].find(i) == TCP_FSM[state].end()) {
+            return "ERROR";
         }
-        return stateToString(currentState);
+        state = TCP_FSM[state][i];
     }
-    catch (const std::runtime_error& e) {
-        return "ERROR";
-    }
+    return state;
 }
 
 
