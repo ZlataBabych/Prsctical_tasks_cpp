@@ -55,75 +55,7 @@ Examples
 
 ["APP_ACTIVE_OPEN", "RCV_SYN_ACK", "APP_CLOSE", "RCV_FIN_ACK", "RCV_ACK"] =>  "ERROR"
 */
-enum class EVENT {
-    APP_PASSIVE_OPEN,
-    APP_ACTIVE_OPEN,
-    APP_SEND,
-    APP_CLOSE,
-    APP_TIMEOUT,
-    RCV_SYN,
-    RCV_ACK,
-    RCV_SYN_ACK,
-    RCV_FIN,
-    RCV_FIN_ACK
-};
-enum class STATE {
-    CLOSED,
-    LISTEN,
-    SYN_SENT,
-    SYN_RCVD,
-    ESTABLISHED,
-    CLOSE_WAIT,
-    LAST_ACK,
-    FIN_WAIT_1,
-    FIN_WAIT_2,
-    CLOSING,
-    TIME_WAIT
-};
-map<STATE, map<EVENT, STATE>> stateEvents{
-    {STATE::CLOSED, {
-        {EVENT::APP_PASSIVE_OPEN, STATE::LISTEN},
-        {EVENT::APP_ACTIVE_OPEN, STATE::SYN_SENT}
-    }},
-    {STATE::LISTEN, {
-        {EVENT::RCV_SYN, STATE::SYN_RCVD},
-        {EVENT::APP_SEND, STATE::SYN_SENT},
-        {EVENT::APP_CLOSE, STATE::CLOSED}
-    }},
-    {STATE::SYN_RCVD, {
-        {EVENT::APP_CLOSE, STATE::FIN_WAIT_1},
-        {EVENT::RCV_ACK, STATE::ESTABLISHED}
-    }},
-    {STATE::SYN_SENT, {
-        {EVENT::RCV_SYN, STATE::SYN_RCVD},
-        {EVENT::RCV_SYN_ACK, STATE::ESTABLISHED},
-        {EVENT::APP_CLOSE, STATE::CLOSED}
-    }},
-    {STATE::ESTABLISHED, {
-        {EVENT::APP_CLOSE, STATE::FIN_WAIT_1},
-        {EVENT::RCV_FIN, STATE::CLOSE_WAIT}
-    }},
-    {STATE::CLOSE_WAIT, {
-        {EVENT::APP_CLOSE, STATE::LAST_ACK}
-    }},
-    {STATE::LAST_ACK, {
-        {EVENT::RCV_ACK, STATE::CLOSED}
-    }},
-    {STATE::FIN_WAIT_1, {
-        {EVENT::RCV_FIN, STATE::CLOSING},
-        {EVENT::RCV_FIN_ACK, STATE::TIME_WAIT},
-        {EVENT::RCV_ACK, STATE::FIN_WAIT_2}
-    }},
-    {STATE::FIN_WAIT_2, {
-        {EVENT::RCV_FIN, STATE::TIME_WAIT}
-    }},
-    {STATE::CLOSING, {
-        {EVENT::RCV_ACK, STATE::TIME_WAIT}
-    }},
-    {STATE::TIME_WAIT, {
-        {EVENT::APP_TIMEOUT, STATE::CLOSED}
-    }}
-};
+
 STATE getNewState(STATE currentState, EVENT event) {
     if (stateEvents[currentState].find(event) !=
         stateEvents[currentState].end()) {
