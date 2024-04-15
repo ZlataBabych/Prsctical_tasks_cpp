@@ -375,7 +375,8 @@ std::string traverse_TCP_states(const std::vector<std::string>& events) {
 }
 
 
-
+// make sure to check the name is unique via the photoManager object
+std::string generateName();
 
 
 //169. Calculate the number of units in any number.

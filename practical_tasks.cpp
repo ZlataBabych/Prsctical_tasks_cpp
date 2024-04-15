@@ -80,6 +80,19 @@ std::string traverse_TCP_states(const std::vector<std::string>& events) {
 }
 
 
+std::string generateName()
+{
+    std::string str = "";
+    char ch;
+    for (int i = 0; i < 6; i++)
+    {
+        ch = 65 + rand() % 25;
+        str += ch;
+    }
+    return str;
+}
+
+
 int count_units(int number) {
     int count = 0;
     std::string str = std::to_string(number);
