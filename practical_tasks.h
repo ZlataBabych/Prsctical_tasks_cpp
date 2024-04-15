@@ -415,6 +415,12 @@ In the event that your calculation produces a negative result, the value returne
 string communicationModule(string packet);
 
 
+// Return the sum of all values in the tree, including the root
+struct node;
+int sumTheTreeValues(node* root);
+
+
+
 // make sure to check the name is unique via the photoManager object
 std::string generateName();
 

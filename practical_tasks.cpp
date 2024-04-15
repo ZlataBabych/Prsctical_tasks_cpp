@@ -140,6 +140,19 @@ string communicationModule(string packet)
     return packet;
 }
 
+// Return the sum of all values in the tree, including the root
+struct node {
+public:
+    int value = 0;
+    node* left = nullptr;
+    node* right = nullptr;
+};
+int sumTheTreeValues(node* root) {
+    if (root == nullptr)
+        return 0;
+    else
+        return root->value + sumTheTreeValues(root->left) + sumTheTreeValues(root->right);
+}
 
 
 std::string generateName()

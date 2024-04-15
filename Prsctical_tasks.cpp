@@ -21,10 +21,8 @@ using namespace std;
 
 
 
-
 int main() {
-    cout << communicationModule("H1H10F1200120008F4F4");
-    
+
 
     return 0;
 }
