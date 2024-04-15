@@ -13,20 +13,19 @@
 #include <sstream>
 #include <fstream>
 #include<random>
+#include <functional>
+#include <iomanip>
 
-using namespace std; 
+using namespace std;
+
+
 
 
 
 int main() {
+    cout << communicationModule("H1H10F1200120008F4F4");
     
-    for (int i = 0; i < 5; i++)
-    {
-        
-        
-        cout << generateName() << endl;
 
-    }
     return 0;
 }
 
